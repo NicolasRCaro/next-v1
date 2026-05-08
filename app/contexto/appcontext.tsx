@@ -1,9 +1,14 @@
 "use client";
 import { createContext, useContext, useState } from "react";
 
-const AppContext = createContext();
+interface AppContextType {
+  nombre: string;
+  setNombre: (value: string) => void;
+}
 
-export function AppProvider({ children }) {
+const AppContext = createContext<AppContextType | undefined>(undefined);
+
+export function AppProvider({ children }: { children: React.ReactNode }) {
   const [nombre, setNombre] = useState("Nicolas");
 
   return (
@@ -13,6 +18,10 @@ export function AppProvider({ children }) {
   );
 }
 
-export function useAppContext() {
-  return useContext(AppContext);
+export function useAppContext(): AppContextType {
+  const context = useContext(AppContext);
+  if (!context) {
+    throw new Error("useAppContext must be used within AppProvider");
+  }
+  return context;
 }
