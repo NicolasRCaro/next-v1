@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { AppProvider } from "./contexto/appcontext";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -32,8 +33,9 @@ export default function RootLayout({
         <Link href="/">Boton Home</Link>
         <Link href="/uno">Boton uno</Link>
         <Link href="/dos">Boton dos</Link>
+        <AppProvider>
         {children}
-        
+        </AppProvider>
         </body>
     </html>
   );
